@@ -14,7 +14,7 @@ abstract class Monster: Fightable{
     abstract val name: String
     abstract val desctiption: String
     override fun attack(opponent: Fightable): Int {
-        opponent.healthPoints - damageRoll
+        opponent.healthPoints -= damageRoll
         return damageRoll
     }
 }
