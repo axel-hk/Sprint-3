@@ -6,13 +6,23 @@ import io.mockk.*
 import ru.sber.qa.CertificateRequest
 import ru.sber.qa.CertificateType
 import java.lang.AssertionError
+import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 class CertificateRequestTest {
-   private val request = mockk<CertificateRequest>()
+
+    private val certificateRequest = CertificateRequest(2L, CertificateType.NDFL)
 
     @Test
-    fun test(){
-        assertNotNull(CertificateRequest(2L, CertificateType.NDFL).process(2L))
+    fun testNotNull(){
+        assertNotNull(certificateRequest.process(2L))
+    }
+    @Test
+    fun numerShouldBeTheSame(){
+        assertEquals(2L, certificateRequest.employeeNumber)
+    }
+    @Test
+    fun typeShouldBeTheSame(){
+        assertEquals(CertificateType.NDFL, certificateRequest.certificateType)
     }
 }

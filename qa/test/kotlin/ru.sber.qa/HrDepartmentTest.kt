@@ -11,7 +11,8 @@ import kotlin.test.assertNotNull
 class HrDepartmentTest {
     val now = System.currentTimeMillis()
     private val fixedClock = Clock.fixed(Instant.ofEpochMilli(now), ZoneId.systemDefault())
-    private val department = mockk<HrDepartment>()
+    private val department = mockkClass(HrDepartment::class)
+    private val request = CertificateRequest(1L,CertificateType.NDFL)
 
     @BeforeEach
     fun `fix the clock `() {
@@ -21,11 +22,15 @@ class HrDepartmentTest {
 
     }
     @Test
-    fun test(){
+    fun testWeekendDayException(){
 
-        every { department.receiveRequest(CertificateRequest(1L,CertificateType.NDFL)) } throws WeekendDayException()
-        every { department.receiveRequest(CertificateRequest(1L,CertificateType.NDFL)) } throws  NotAllowReceiveRequestException()
+        every { department.receiveRequest(request) } throws WeekendDayException()
 
+    }
+
+    @Test
+    fun testNotAllowRecieveRequest(){
+        every { department.receiveRequest(request) } throws  NotAllowReceiveRequestException()
     }
 
 }
