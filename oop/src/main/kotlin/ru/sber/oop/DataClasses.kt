@@ -6,9 +6,7 @@ data class User(val name: String, val age: Long) {
     @Override
     override fun equals(other: Any?):Boolean {
         if (other is User) {
-            if (this.city == other.city) {
-                return super.equals(other)
-            } else return false
+            return this.city == other.city && this.name == other.name && this.age == other.age
         }
         return false
     }

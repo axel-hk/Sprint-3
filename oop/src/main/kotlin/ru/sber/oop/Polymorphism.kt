@@ -14,8 +14,9 @@ abstract class Monster: Fightable{
     abstract val name: String
     abstract val desctiption: String
     override fun attack(opponent: Fightable): Int {
-        opponent.healthPoints -= damageRoll
-        return damageRoll
+        val attackPoints = damageRoll
+        opponent.healthPoints -= attackPoints
+        return attackPoints
     }
 }
 //TODO: create class Player, Monster, Goblin here...
@@ -28,13 +29,14 @@ class Player(val name:String,
 
 
     override fun attack(opponent: Fightable): Int {
+        val attackPoints = damageRoll
         if(isBlessed) {
-            opponent.healthPoints -= damageRoll*2
-            return damageRoll*2
+            opponent.healthPoints -= attackPoints*2
+            return attackPoints*2
         }
         else {
-            opponent.healthPoints -= damageRoll
-            return damageRoll
+            opponent.healthPoints -= attackPoints
+            return attackPoints
         }
     }
 
@@ -51,4 +53,9 @@ class Goblin(
 
 
 }
-
+fun main() {
+    val p1 = Player("name1", false, "powerType1", 100, 5)
+    val e1 = Goblin("powerType2", 100, "name2", "desc2")
+    println(e1.attack(p1))
+    println(100 - p1.healthPoints)
+}
